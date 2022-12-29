@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">MyPlaceWeather</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="splash">Splash</string>
+    <string name="weather">Weather</string>
+    <string name="weather_city">Weather in City</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="pressure">Pressure</string>
+    <string name="data">Data</string>
+    <string name="choose">Choose</string>
+    <string name="choose_place">Choose</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="icon">Icon</string>
+    <string name="select">Select or enter a location to determine the weather</string>
+    <string name="wind">Wind</string>
+    <string name="enter_your_city">Enter your city:</string>
+    <string name="visibility">Visibility</string>
+    <string name="rain">Rain</string>
+    <string name="temperature_min">Temperature min</string>
+    <string name="temperature_max">Temperature max</string>
+    <string name="sea_level">Sea level</string>
+    <string name="description">Description</string>
+    <string name="local_time">Local time</string>
+</resources>
