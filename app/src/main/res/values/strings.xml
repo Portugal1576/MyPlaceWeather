@@ -24,4 +24,7 @@
     <string name="sea_level">Sea level</string>
     <string name="description">Description</string>
     <string name="local_time">Local time</string>
+    <string name="wind_gust">Wind gust</string>
+    <string name="detail">Detail</string>
+    <string name="fase_of_moon">Fase of moon</string>
 </resources>

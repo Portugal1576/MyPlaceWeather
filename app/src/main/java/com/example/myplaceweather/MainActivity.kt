@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -16,7 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.myplaceweather.databinding.ActivityMainBinding
-import com.example.myplaceweather.model.Coord
+import com.example.myplaceweather.modelall.model.Coord
 import com.example.myplaceweather.utils.APP
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -29,20 +31,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locClient: FusedLocationProviderClient
     private val mainViewModel: MainViewModel by viewModels()
 
-    // OnBackPress
+
+    //OnBackPress
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            //showing dialog and then closing the application..
             showDialog()
         }
     }
 
+    @SuppressLint("ServiceCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         APP = this
         navController = Navigation.findNavController(this, R.id.nav_host)
+
+        if (checkForInternet(this)) {
+            Toast.makeText(this, "Internet Connected", Toast.LENGTH_SHORT).show()
+        } else {
+            MaterialAlertDialogBuilder(this).apply {
+                setTitle("Internet Disconnected")
+                setMessage("Application closed")
+                setPositiveButton("OK") { _, _ -> finish() }
+                show()
+            }
+        }
 
         locClient = LocationServices.getFusedLocationProviderClient(this)
         getCurrentLocation()
@@ -69,6 +83,8 @@ class MainActivity : AppCompatActivity() {
                     val location: Location? = task.result
                     if (location == null) {
                         Toast.makeText(this, "Null received", Toast.LENGTH_LONG).show()
+                        mainViewModel.coordinates.value = Coord(41.1296529, -7.7850178)
+
                     } else {
                         Toast.makeText(this, "Location get Success", Toast.LENGTH_LONG).show()
 
@@ -83,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         } else {
-            //request permission here
             requestPermission()
         }
     }
@@ -93,8 +108,7 @@ class MainActivity : AppCompatActivity() {
             this, arrayOf(
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ),
-            PERMISSION_REQUEST_ACCESS_LOCATION
+            ), PERMISSION_REQUEST_ACCESS_LOCATION
         )
     }
 
@@ -104,12 +118,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkPermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                this, android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, android.Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -120,14 +131,13 @@ class MainActivity : AppCompatActivity() {
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_ACCESS_LOCATION) {
@@ -138,6 +148,19 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Denied", Toast.LENGTH_LONG).show()
 
             }
+        }
+    }
+
+    private fun checkForInternet(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+        return when {
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            else -> false
         }
     }
 

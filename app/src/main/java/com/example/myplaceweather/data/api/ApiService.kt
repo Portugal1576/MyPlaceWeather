@@ -1,6 +1,6 @@
 package com.example.myplaceweather.data.api
 
-import com.example.myplaceweather.model.WeatherMap
+import com.example.myplaceweather.modelall.model.WeatherMap
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -44,11 +44,13 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mainViewModel.coordinates.observe(activity as LifecycleOwner) {
-            binding.tvLat.text = "Lat: " + ((it.lat * 100.0).roundToInt() / 100.0).toString()
-            binding.tvLon.text = "Lon: " + ((it.lon * 100.0).roundToInt() / 100.0).toString()
-
+            binding.tvLat.text = "Lat: " + it.lat.toCoordinats()
+            binding.tvLon.text = "Lon: " + it.lon.toCoordinats()
         }
         mainViewModel.getWeatherList()
+
+//        mainViewModel.getMoonFase()
+
         mainViewModel.myWeatherList.observe(viewLifecycleOwner) { list ->
             list.body()?.let {
                 adapter.setList(it)
@@ -63,5 +65,9 @@ class StartFragment : Fragment() {
             APP.navController.navigate(R.id.action_startFragment_to_detailFragment)
         }
 
+    }
+
+    fun Double.toCoordinats(): String {
+        return ((this * 100.0).roundToInt() / 100.0).toString()
     }
 }

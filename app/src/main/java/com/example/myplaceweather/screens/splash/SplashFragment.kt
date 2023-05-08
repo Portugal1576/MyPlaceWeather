@@ -1,33 +1,30 @@
 package com.example.myplaceweather.screens.splash
 
 import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
-import android.os.Build
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
 import com.example.myplaceweather.R
 import com.example.myplaceweather.databinding.FragmentSplashBinding
+import com.example.myplaceweather.utils.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
 
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
-    @RequiresApi(Build.VERSION_CODES.O)
     private val current = LocalDate.now()
-    @RequiresApi(Build.VERSION_CODES.O)
-    private val current_month = current.monthValue
+    private val month = current.monthValue
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,41 +36,37 @@ class SplashFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
         val orientation = view.resources.configuration.orientation
-        binding.tvTime.text = current.toString()
-        if (orientation == 1){
-        when (current_month) {
-            12, 1, 2 -> binding.splashContainer.background =
-                resources.getDrawable(R.drawable.winter_portrait, context?.theme)
-            3, 4, 5 -> binding.splashContainer.background =
-                resources.getDrawable(R.drawable.spring_portrait, context?.theme)
-            6, 7, 8 -> binding.splashContainer.background =
-                resources.getDrawable(R.drawable.summer_portrait, context?.theme)
-            else -> {
-                binding.splashContainer.background =
-                    resources.getDrawable(R.drawable.autumn_portrait, context?.theme)
-            }
-        }
-
-        }
-        else{
-            when (current_month) {
+        binding.tvTime.text = SimpleDateFormat("dd-M-yyyy", Locale.getDefault())
+            .format(Date()).toString()
+        if (orientation == 1) {
+            when (month) {
                 12, 1, 2 -> binding.splashContainer.background =
-                    resources.getDrawable(R.drawable.winter_landscape, context?.theme)
+                    resources.getDrawable(WINTER, context?.theme)
                 3, 4, 5 -> binding.splashContainer.background =
-                    resources.getDrawable(R.drawable.spring_landscape, context?.theme)
+                    resources.getDrawable(SPRING, context?.theme)
                 6, 7, 8 -> binding.splashContainer.background =
-                    resources.getDrawable(R.drawable.summer_landscape, context?.theme)
+                    resources.getDrawable(SUMMER, context?.theme)
                 else -> {
                     binding.splashContainer.background =
-                        resources.getDrawable(R.drawable.autumn_landscape, context?.theme)
+                        resources.getDrawable(AUTUMN, context?.theme)
+                }
+            }
+
+        } else {
+            when (month) {
+                12, 1, 2 -> binding.splashContainer.background =
+                    resources.getDrawable(WINTER_LAND, context?.theme)
+                3, 4, 5 -> binding.splashContainer.background =
+                    resources.getDrawable(SPRING_LAND, context?.theme)
+                6, 7, 8 -> binding.splashContainer.background =
+                    resources.getDrawable(SUMMER_LAND, context?.theme)
+                else -> {
+                    binding.splashContainer.background =
+                        resources.getDrawable(AUTUMN_LAND, context?.theme)
                 }
             }
         }

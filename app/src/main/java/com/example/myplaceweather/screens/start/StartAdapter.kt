@@ -1,15 +1,13 @@
 package com.example.myplaceweather.screens.start
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myplaceweather.R
-import com.example.myplaceweather.model.WeatherMap
+import com.example.myplaceweather.modelall.model.WeatherMap
 import com.example.myplaceweather.utils.image_url
 import kotlinx.android.synthetic.main.item_list_weather.view.*
 import java.time.LocalDateTime
@@ -29,7 +27,6 @@ class StartAdapter : RecyclerView.Adapter<StartAdapter.StartViewHolder>() {
         return StartViewHolder(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
 
@@ -47,6 +44,8 @@ class StartAdapter : RecyclerView.Adapter<StartAdapter.StartViewHolder>() {
         holder.itemView.tv_pressure.text =
             ((listMap[0].list[position].main.pressure) * 0.750062).toInt().toString() + " mm Hg"
         holder.itemView.tv_wind.text = listMap[0].list[position].wind.speed.toString() + " m/sec"
+        holder.itemView.image_wind_item.rotation = listMap[0].list[position].wind.deg.toFloat()
+        holder.itemView.tv_wind_gust.text = listMap[0].list[position].wind.gust.toString() + " m/sec"
         val image = listMap[0].list[position].weather[0].icon
         val url = image_url + "${image}.png"
         Glide.with(holder.itemView.context)

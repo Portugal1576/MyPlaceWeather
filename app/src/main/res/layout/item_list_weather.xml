@@ -7,6 +7,7 @@
     android:layout_margin="10dp"
     android:elevation="10dp"
     app:cardCornerRadius="20dp">
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,15 +18,16 @@
         android:id="@+id/tv_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="26dp"
+        android:gravity="end"
         android:text="@string/data"
         android:textSize="14sp"
-        android:textStyle="italic"
+        android:textStyle="bold"
         android:textColor="@color/blue_1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
         android:padding="8dp">
@@ -60,6 +62,13 @@
                 android:text="@string/wind"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/blue_1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wind_gust"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/red"/>
+
         </LinearLayout>
 
         <View
@@ -102,36 +111,64 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_wind"
-
                 android:text="@string/wind"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/blue_1"/>
+            <TextView
+                android:id="@+id/tv_wind_gust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wind_gust"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/red"/>
+
         </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <FrameLayout
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/wind_degri_circle">
+
+        <ImageView
+            android:id="@+id/image_wind_item"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/icon"
+            android:rotation="137"
+            app:srcCompat="@drawable/wind_arrow" />
+    </FrameLayout>
     <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_gravity="end"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="20dp"
         android:elevation="10dp"
         >
         <ImageView
             android:id="@+id/image_icon"
-            android:backgroundTint="@color/blue"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
             tools:src="@tools:sample/avatars"
+            android:backgroundTint="@color/white"
             android:contentDescription="@string/icon" />
     </androidx.cardview.widget.CardView>
 
+
 </FrameLayout>
 
+</LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

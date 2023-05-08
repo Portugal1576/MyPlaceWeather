@@ -1,23 +1,19 @@
 package com.example.myplaceweather.screens.choice
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import com.example.myplaceweather.MainViewModel
 import com.example.myplaceweather.R
 import com.example.myplaceweather.databinding.FragmentChoiceBinding
-import com.example.myplaceweather.model.Coord
+import com.example.myplaceweather.modelall.model.Coord
 import com.example.myplaceweather.utils.APP
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -34,14 +30,17 @@ class ChoiceFragment : Fragment() {
     private val mainViewModel: MainViewModel by activityViewModels()
 
     private lateinit var binding: FragmentChoiceBinding
-    @SuppressLint("RestrictedApi")
+
+
+    @SuppressLint("RestrictedApi", "SuspiciousIndentation")
     private val callback = OnMapReadyCallback { googleMap ->
 
         val myPlaceLat = mainViewModel.coordinates.value?.lat
         val myPlaceLon = mainViewModel.coordinates.value?.lon
         val myPlace = LatLng(myPlaceLat!!, myPlaceLon!!)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 8f))
 
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, 8f))
+        googleMap.addMarker(MarkerOptions().position(myPlace))?.isVisible = true
         binding.btnCity.setOnClickListener {
             val city = binding.etCity.text.toString()
             mainViewModel.getCityCoordinats(city)
@@ -65,8 +64,9 @@ class ChoiceFragment : Fragment() {
                     R.id.action_choiceFragment_to_detailFragment
                 )
             }, 4000)
+
         }
-            binding.btnCity
+        binding.btnCity
 
         googleMap.setOnMapClickListener { latLng ->
             googleMap.clear()
@@ -79,15 +79,13 @@ class ChoiceFragment : Fragment() {
             mainViewModel.coordinates.value = Coord(latLng.latitude, latLng.longitude)
             //Delay 1 sec
             Handler(Looper.getMainLooper()).postDelayed({
-                showDialog()
             }, 1000)
+            showDialog()
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentChoiceBinding.inflate(layoutInflater)
         return binding.root
@@ -101,26 +99,20 @@ class ChoiceFragment : Fragment() {
 
 
     private fun showDialog() {
-        MaterialAlertDialogBuilder(requireActivity())
-            .apply {
-                setTitle("Are you sure?")
-                setPositiveButton("Yes") { _, _ ->
-                    APP.navController.navigate(
-                        R.id.action_choiceFragment_to_detailFragment
-                    )
-                }
-                setNegativeButton("No"){ _, _ ->
-                    binding.etCity.isVisible = true
-                    binding.btnCity.isVisible = true
-                    binding.tvAttention.isVisible = true
-                }
-                show()
+        MaterialAlertDialogBuilder(requireActivity()).apply {
+            setTitle("Are you sure?")
+            setPositiveButton("Yes") { _, _ ->
+                APP.navController.navigate(
+                    R.id.action_choiceFragment_to_detailFragment
+                )
             }
-    }
-    @SuppressLint("ServiceCast")
-    fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            setNegativeButton("No") { _, _ ->
+                binding.etCity.isVisible = true
+                binding.btnCity.isVisible = true
+                binding.tvAttention.isVisible = true
+            }
+            show()
+        }
     }
 
 }
