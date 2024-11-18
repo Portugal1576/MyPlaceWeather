@@ -3,28 +3,34 @@ package com.example.myplaceweather.screens.splash
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.myplaceweather.R
 import com.example.myplaceweather.databinding.FragmentSplashBinding
-import com.example.myplaceweather.utils.*
+import com.example.myplaceweather.utils.AUTUMN
+import com.example.myplaceweather.utils.AUTUMN_LAND
+import com.example.myplaceweather.utils.SPRING
+import com.example.myplaceweather.utils.SPRING_LAND
+import com.example.myplaceweather.utils.SUMMER
+import com.example.myplaceweather.utils.SUMMER_LAND
+import com.example.myplaceweather.utils.WINTER
+import com.example.myplaceweather.utils.WINTER_LAND
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.util.*
-
+import java.util.Date
+import java.util.Locale
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
     private val current = LocalDate.now()
     private val month = current.monthValue
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +52,13 @@ class SplashFragment : Fragment() {
             when (month) {
                 12, 1, 2 -> binding.splashContainer.background =
                     resources.getDrawable(WINTER, context?.theme)
+
                 3, 4, 5 -> binding.splashContainer.background =
                     resources.getDrawable(SPRING, context?.theme)
+
                 6, 7, 8 -> binding.splashContainer.background =
                     resources.getDrawable(SUMMER, context?.theme)
+
                 else -> {
                     binding.splashContainer.background =
                         resources.getDrawable(AUTUMN, context?.theme)
@@ -60,10 +69,13 @@ class SplashFragment : Fragment() {
             when (month) {
                 12, 1, 2 -> binding.splashContainer.background =
                     resources.getDrawable(WINTER_LAND, context?.theme)
+
                 3, 4, 5 -> binding.splashContainer.background =
                     resources.getDrawable(SPRING_LAND, context?.theme)
+
                 6, 7, 8 -> binding.splashContainer.background =
                     resources.getDrawable(SUMMER_LAND, context?.theme)
+
                 else -> {
                     binding.splashContainer.background =
                         resources.getDrawable(AUTUMN_LAND, context?.theme)

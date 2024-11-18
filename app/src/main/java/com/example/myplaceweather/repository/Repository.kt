@@ -23,9 +23,9 @@ class Repository {
         return RetrofitCityInstance.apiCity.getCityWeather(city, KEY, "metric")
     }
 
-    fun getMoonImage(fase: Double): Int {
+    fun getMoonImage(phase: Double): Int {
 
-        when (fase) {
+        when (phase) {
             0.0 -> return R.drawable.m_1
             in 0.0001..0.03 -> return R.drawable.m_1_1
             in 0.031..0.07 -> return R.drawable.m_1_2

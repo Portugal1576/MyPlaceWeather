@@ -1,7 +1,6 @@
 package com.example.myplaceweather.screens.choice
 
 import android.annotation.SuppressLint
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.myplaceweather.MainViewModel
 import com.example.myplaceweather.R
@@ -18,13 +18,11 @@ import com.example.myplaceweather.utils.APP
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.internal.ViewUtils.hideKeyboard
-import kotlinx.android.synthetic.main.fragment_choice.*
-import java.util.*
 
-@Suppress("UNREACHABLE_CODE")
 class ChoiceFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -43,7 +41,7 @@ class ChoiceFragment : Fragment() {
         googleMap.addMarker(MarkerOptions().position(myPlace))?.isVisible = true
         binding.btnCity.setOnClickListener {
             val city = binding.etCity.text.toString()
-            mainViewModel.getCityCoordinats(city)
+            mainViewModel.getCityCoordinates(city)
 
             binding.etCity.isVisible = false
             binding.btnCity.isVisible = false
@@ -114,5 +112,4 @@ class ChoiceFragment : Fragment() {
             show()
         }
     }
-
 }

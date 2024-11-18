@@ -3,10 +3,10 @@ package com.example.myplaceweather.screens.detail
 import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.example.myplaceweather.MainViewModel
@@ -14,8 +14,8 @@ import com.example.myplaceweather.R
 import com.example.myplaceweather.databinding.FragmentDetailBinding
 import com.example.myplaceweather.utils.APP
 import com.example.myplaceweather.utils.image_url
-import kotlinx.android.synthetic.main.item_list_weather.view.*
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 class DetailFragment : Fragment() {
 
@@ -36,17 +36,16 @@ class DetailFragment : Fragment() {
 
         mainViewModel.getWeatherList()
 
-        mainViewModel.getMoonFase()
+        mainViewModel.getMoonPhase()
 
-        mainViewModel.myMoonFaseList.observe(viewLifecycleOwner) { list ->
+        mainViewModel.myMoonPhaseList.observe(viewLifecycleOwner) { list ->
             list.body()?.let {
                 binding.dayOfMoon.text = it.daily[0].moon_phase.toString()
-                val moonFase = it.daily[0].moon_phase
-                val res = mainViewModel.getImageMoonFase(moonFase)
+                val moonPhase = it.daily[0].moon_phase
+                val res = mainViewModel.getImageMoonPhase(moonPhase)
                 binding.imageMoon.setImageResource(res)
             }
         }
-
 
         mainViewModel.myWeatherList.observe(viewLifecycleOwner) { list ->
             list.body()?.let {

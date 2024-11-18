@@ -20,29 +20,30 @@ class MainViewModel : ViewModel() {
     private val repo = Repository()
 
     val myWeatherList: MutableLiveData<Response<WeatherMap>> = MutableLiveData()
-    val myMoonFaseList: MutableLiveData<Response<MoonResponse>> = MutableLiveData()
+    val myMoonPhaseList: MutableLiveData<Response<MoonResponse>> = MutableLiveData()
     val myCityWeather: MutableLiveData<Response<WeatherFromCity>> = MutableLiveData()
-    var moonFase: Int = 2131165473
+    private var moonPhase: Int = 2131165473
 
     fun getWeatherList() {
         viewModelScope.launch {
             myWeatherList.value = repo.getWeather(coordinates.value!!.lat, coordinates.value!!.lon)
         }
     }
-    fun getImageMoonFase(fase: Double): Int{
+
+    fun getImageMoonPhase(phase: Double): Int {
         viewModelScope.launch {
-            moonFase = repo.getMoonImage(fase)
+            moonPhase = repo.getMoonImage(phase)
         }
-        return moonFase
+        return moonPhase
     }
 
-    fun getMoonFase() {
+    fun getMoonPhase() {
         viewModelScope.launch {
-            myMoonFaseList.value = repo.getMoon(coordinates.value!!.lat, coordinates.value!!.lon)
+            myMoonPhaseList.value = repo.getMoon(coordinates.value!!.lat, coordinates.value!!.lon)
         }
     }
 
-    fun getCityCoordinats(city: String) {
+    fun getCityCoordinates(city: String) {
         viewModelScope.launch {
             myCityWeather.value = repo.getCity(city)
         }

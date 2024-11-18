@@ -8,12 +8,12 @@ import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var locClient: FusedLocationProviderClient
     private val mainViewModel: MainViewModel by viewModels()
-
 
     //OnBackPress
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -163,5 +162,4 @@ class MainActivity : AppCompatActivity() {
             else -> false
         }
     }
-
 }
