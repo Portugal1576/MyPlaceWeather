@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/splash_container"
+    android:background="@drawable/summer_portrait"
+    tools:context=".screens.splash.SplashFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:layout_marginTop="48dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/weather" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:layout_marginTop="98dp"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:text="@string/local_time" />
+</FrameLayout>

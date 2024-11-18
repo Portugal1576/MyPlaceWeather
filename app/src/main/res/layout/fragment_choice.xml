@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_attention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/select"
+        android:textSize="20sp"
+        android:textColor="@color/red"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+
+        <EditText
+            android:id="@+id/et_city"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:hint="@string/enter_your_city"
+            android:textSize="20sp"
+            android:textColor="@color/blue_1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:autofillHints="name"
+            android:layout_weight="1"
+            android:inputType="text" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:contentDescription="@string/choose_place"
+            android:src="@drawable/ic_baseline_input_24"
+            tools:ignore="RtlHardcoded"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:backgroundTint="@color/red"/>
+
+    </LinearLayout>
+
+<androidx.fragment.app.FragmentContainerView
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.choice.ChoiceFragment"
+    tools:ignore="FragmentTagUsage" />
+
+</LinearLayout>

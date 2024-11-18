@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.myplaceweather.screens.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_choiceFragment"
+            app:destination="@id/choiceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/choiceFragment"
+        android:name="com.example.myplaceweather.screens.choice.ChoiceFragment"
+        android:label="fragment_choice"
+        tools:layout="@layout/fragment_choice" >
+        <action
+            android:id="@+id/action_choiceFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.myplaceweather.screens.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.myplaceweather.screens.start.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_choiceFragment"
+            app:destination="@id/choiceFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.myplaceweather.screens.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <action
+            android:id="@+id/action_detailFragment_to_startFragment"
+            app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_choiceFragment"
+            app:destination="@id/choiceFragment" />
+    </fragment>
+</navigation>
